@@ -27,9 +27,17 @@
 
 	var fullHeight = function() {
 
-		$('.js-fullheight').css('height', $(window).height());
+		function applyFullHeight(){
+			if ($(window).width() > 767) {
+				$('.js-fullheight').css('height', $(window).height());
+			} else {
+				$('.js-fullheight').css('height', 'auto');
+			}
+		}
+
+		applyFullHeight();
 		$(window).resize(function(){
-			$('.js-fullheight').css('height', $(window).height());
+			applyFullHeight();
 		});
 
 	};

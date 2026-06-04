@@ -26,6 +26,17 @@
   margin: 0 auto;
   padding: 0 32px;
 }
+
+/* Mobile header: make navbar white by default on small screens */
+@media (max-width: 767.98px) {
+  .ftco-navbar-light {
+    background: #ffffff !important;
+    position: relative !important;
+  }
+  .ftco-navbar-light .navbar-brand .navbar-logo {
+    filter: none !important;
+  }
+}
 .custom-footer-overlay .row.mb-5 {
   margin-bottom: 0 !important;
   display: flex;

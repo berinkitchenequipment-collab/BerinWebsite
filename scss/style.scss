@@ -75,7 +75,7 @@ h1, h2, h3, h4, h5,
 	z-index: 3;
 	padding: 0;
 	@include media-breakpoint-down(md) {
-		background: $brand-dark!important;
+		background: $white!important;
 		position: relative;
 		top: 0;
 		padding: 10px 15px;
@@ -91,7 +91,7 @@ h1, h2, h3, h4, h5,
 			color: $brand-dark;
 		}
 		@include media-breakpoint-down(md){
-			color: $white;
+			color: $brand-dark;
 		}
 	}
 
@@ -134,6 +134,9 @@ h1, h2, h3, h4, h5,
 			padding-bottom: 10px;
 		}
 		> .nav-item {
+			@include media-breakpoint-down(md){
+				margin: 3px 0;
+			}
 			> .nav-link {
 				font-size: 14px;
 				padding-top: .8rem;
@@ -147,13 +150,12 @@ h1, h2, h3, h4, h5,
 				}
 				opacity: 1!important;
 				@include media-breakpoint-down(md){
-					padding-left: 0;
-					padding-right: 0;
-					padding-top: .9rem;
-					padding-bottom: .9rem;
-					color: rgba(255,255,255,.7);
+					padding: 12px 16px;
+					border-radius: 8px;
+					color: rgba(21,34,52,.75);
 					&:hover{
-						color: $white;
+						color: $brand-dark;
+						background: rgba(29,95,184,.08);
 					}
 				}
 			}
@@ -219,6 +221,8 @@ h1, h2, h3, h4, h5,
 					@include media-breakpoint-down(md){
 						color: $white;
 						background: rgba(29,95,184,.92);
+						border-radius: 8px;
+						box-shadow: 0 10px 22px -18px rgba(29,95,184,.9);
 					}
 				}
 			}
@@ -1401,6 +1405,12 @@ textarea.form-control {
 .ftco-navbar-light .navbar-nav > .nav-item > .nav-link:hover,
 .ftco-navbar-light .navbar-brand:hover {
 	transform: translateY(-1px);
+}
+
+@include media-breakpoint-down(md) {
+	.ftco-navbar-light .navbar-nav > .nav-item > .nav-link:hover {
+		transform: none;
+	}
 }
 
 .menus:hover,

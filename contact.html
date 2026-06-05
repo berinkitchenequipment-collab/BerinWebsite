@@ -115,7 +115,7 @@
           <div class="col-md-6 p-5 order-md-last">
             <h2 class="h4 mb-5 font-weight-bold">Send Enquiry</h2>
             <p>Tell us your equipment requirement and we will contact you quickly.</p>
-           <form action="mailto:berinkitchenequipment@gmail.com" method="post" enctype="text/plain">
+            <form id="contact-form" novalidate>
               <div class="form-group">
                 <label for="name">Name</label>
                 <input id="name" name="name" type="text" class="form-control" required />
@@ -289,21 +289,22 @@
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
   <script src="js/google-map.js"></script>
   <script src="js/main.js"></script>
-  <!-- <script>
-    // Submit contact form to server-side PHP endpoint (contact_send.php)
+  <script>
     (function(){
       var form = document.getElementById('contact-form');
       if (!form) return;
       var status = document.getElementById('form-status');
       var phoneRegex = /^(\+91[\-\s]?|0)?[6-9]\d{9}$/;
+      var whatsappNumber = '918428018460';
 
       form.addEventListener('submit', function(e){
         e.preventDefault();
         status.className = '';
-        var formData = new FormData(form);
-        var name = (formData.get('name')||'').toString().trim();
-        var phone = (formData.get('phone')||'').toString().trim();
-        var message = (formData.get('message')||'').toString().trim();
+        status.textContent = '';
+
+        var name = (document.getElementById('name').value || '').trim();
+        var phone = (document.getElementById('phone').value || '').trim();
+        var message = (document.getElementById('message').value || '').trim();
 
         if (!name || !phone || !message) {
           status.textContent = 'Please complete all fields.';
@@ -316,47 +317,17 @@
           return;
         }
 
-        status.textContent = 'Sending...';
+        var text = 'Name: ' + name + '\n' +
+                   'Phone: ' + phone + '\n' +
+                   'Requirement: ' + message;
+        var url = 'https://wa.me/' + whatsappNumber + '?text=' + encodeURIComponent(text);
 
-        fetch('contact_send.php', {
-          method: 'POST',
-          body: formData,
-        }).then(function(res){
-          if (!res.ok) {
-            // Try to read body text for debugging
-            return res.text().then(function(t){
-              throw new Error('Server returned status ' + res.status + (t ? ': ' + t : ''));
-            });
-          }
-          // If JSON returned, parse it; otherwise get plain text
-          var ct = res.headers.get('content-type') || '';
-          if (ct.indexOf('application/json') !== -1) {
-            return res.json();
-          }
-          return res.text().then(function(t){
-            try {
-              return JSON.parse(t || '{}');
-            } catch (e) {
-              return { success: false, message: t || 'Non-JSON response from server' };
-            }
-          });
-        }).then(function(data){
-          if (data && data.success) {
-            status.textContent = data.message || 'Message sent — thank you!';
-            status.className = 'text-success';
-            form.reset();
-          } else {
-            status.textContent = (data && data.message) ? data.message : 'Sending failed — please try again later.';
-            status.className = 'text-danger';
-          }
-        }).catch(function(err){
-          console.error('Send error:', err);
-          status.textContent = 'Sending failed — ' + (err && err.message ? err.message : 'server error.');
-          status.className = 'text-danger';
-        });
+        window.open(url, '_blank');
+        status.textContent = 'Opening WhatsApp...';
+        status.className = 'text-success';
       });
     })();
-  </script> -->
+  </script>
     
   </body>
 </html>

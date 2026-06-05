@@ -317,14 +317,16 @@
           return;
         }
 
-        var text = 'Name: ' + name + '\n' +
+        var text = 'Enquiry from Berin Kitchen Website\n' +
+                   'Name: ' + name + '\n' +
                    'Phone: ' + phone + '\n' +
                    'Requirement: ' + message;
         var url = 'https://wa.me/' + whatsappNumber + '?text=' + encodeURIComponent(text);
-
-        window.open(url, '_blank');
+       window.open(url, '_blank');
         status.textContent = 'Opening WhatsApp...';
         status.className = 'text-success';
+        form.reset(); 
+         status.textContent = '';
       });
     })();
   </script>

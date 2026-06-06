@@ -28,16 +28,43 @@
 	var fullHeight = function() {
 
 		function applyFullHeight(){
+			// Get window height, accounting for mobile address bar
+			var windowHeight = $(window).height();
+			
+			// For desktop: set to full window height
 			if ($(window).width() > 767) {
-				$('.js-fullheight').css('height', $(window).height());
+				$('.js-fullheight').css({
+					'height': windowHeight,
+					'min-height': windowHeight
+				});
+				// Hero section slider items should match full height
+				$('.slider-item').css({
+					'height': windowHeight,
+					'min-height': windowHeight
+				});
 			} else {
-				$('.js-fullheight').css('height', 'auto');
+				// Mobile: allow natural page scroll and flexible hero height
+				$('.js-fullheight').css({
+					'height': 'auto',
+					'min-height': windowHeight,
+					'overflow': 'visible'
+				});
+				$('.slider-item').css({
+					'height': 'auto',
+					'min-height': windowHeight,
+					'overflow': 'visible'
+				});
 			}
 		}
 
 		applyFullHeight();
 		$(window).resize(function(){
 			applyFullHeight();
+		});
+		
+		// Re-apply on orientation change for better mobile support
+		$(window).on('orientationchange', function(){
+			setTimeout(applyFullHeight, 100);
 		});
 
 	};
@@ -70,6 +97,9 @@
 	    nav:true,
 	    dots: true,
 	    autoplayHoverPause: false,
+	    touchDrag: false,
+	    mouseDrag: false,
+	    pullDrag: false,
 	    items: 1,
 	    navText : ["<span class='ion-ios-arrow-back'></span>","<span class='ion-ios-arrow-forward'></span>"],
 	    responsive:{
